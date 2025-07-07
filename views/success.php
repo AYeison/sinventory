@@ -18,7 +18,7 @@
               }
               ?>
             </h2>
-            <a href="?view=home" class="button is-primary">Go to Home</a>
+            <a href="home" class="button is-primary">Go to Home</a>
         </div>
     </div>
 </section>

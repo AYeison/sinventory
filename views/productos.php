@@ -12,6 +12,7 @@ if(is_user_logged_in()):
 
     </div>
 </section>
+   <div class="container " style="height:100vh;"></div>
 <?php
 else:
 // El usuario NO está logueado

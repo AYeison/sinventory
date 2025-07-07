@@ -32,13 +32,12 @@ function is_user_logged_in(){
 
 
 function is_user_logged_redirect(){
-  global  $view;
+  global  $view, $root;
     if(is_user_logged_in() && ($view === 'login' || $view === 'register')){
-      header("Location: $SERVER_NAME/invetory/?view=home");
-         
+      header("Location: $SERVER_NAME/$root/home");
          exit();
     }else if(!is_user_logged_in() && $view != 'register' && $view != 'home' && $view != 'login' && $view != '404'){
-        header("Location: $SERVER_NAME/invetory/?view=login");
+        header("Location: $SERVER_NAME/$root/login");
         exit();
     }
 }

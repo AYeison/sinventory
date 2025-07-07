@@ -10,7 +10,7 @@
             <p class="mb-5">
                 Lo sentimos, la página que buscas no existe o ha sido movida.
             </p>
-            <a href="?view=home" class="button is-light is-large">
+            <a href="home" class="button is-light is-large">
                 Volver al inicio
             </a>
         </div>

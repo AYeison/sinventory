@@ -10,11 +10,17 @@
     <title>Sistema de Inventario</title>
 </head>
 <body>
-<?php include './php/function.php'; ?>
-<?php $view = $_GET['view'] ?? 'home'; ?>
+<?php 
+$root = basename(__DIR__); // Get the name of the current directory
+include './php/function.php'; 
+include  './php/view_controller.php'; 
+include  './inc/session_start.php';
+
+?>
+<?php $view = $_GET['url'] ?? 'home'; ?>
         <?php include './inc/header.php'; ?>        
       <main class="main" style="height: auto;">
-        <?php render_view($view); ?>
+        <?php render_view(); ?>
       </main>
 
         <?php include './inc/footer.php'; ?>

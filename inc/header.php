@@ -1,8 +1,5 @@
 <?php 
 
-include dirname(__DIR__) . '/php/view_controller.php'; 
-include dirname(__DIR__) . '/inc/session_start.php';
-
 session_start();
 
 session_regenerate_id(true);
@@ -13,7 +10,7 @@ is_user_logged_redirect();
 <header class="header container">
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="?view=home">
+            <a class="navbar-item" href="home">
                 <img src="./public/assets/img/logo.svg" alt="Logo">
             </a>
             <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -25,10 +22,10 @@ is_user_logged_redirect();
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="?view=home">Inicio</a>
-                <a class="navbar-item" href="?view=productos">Productos</a>
-                <a class="navbar-item" href="?view=clientes">Clientes</a>
-                <a class="navbar-item" href="?view=categorias">Categorías</a>
+                <a class="navbar-item" href="home">Inicio</a>
+                <a class="navbar-item" href="productos">Productos</a>
+                <a class="navbar-item" href="clientes">Clientes</a>
+                <a class="navbar-item" href="categorias">Categorías</a>
             </div>
 
             <div class="navbar-end">
@@ -36,7 +33,7 @@ is_user_logged_redirect();
          <div class="navbar-item">
                     <div class="field is-grouped">
                         <p class="control">
-                            <a class="button is-primary" href="?view=login">
+                            <a class="button is-primary" href="login">
                                 <span class="icon">
                                     <i class="fas fa-user"></i>
                                 </span>
@@ -48,7 +45,7 @@ is_user_logged_redirect();
                   <div class="navbar-item">
                     <div class="field is-grouped">
                         <p class="control">
-                            <a class="button is-primary" href="?view=register">
+                            <a class="button is-primary" href="register">
                                 <span class="icon">
                                     <i class="fas fa-user"></i>
                                 </span>

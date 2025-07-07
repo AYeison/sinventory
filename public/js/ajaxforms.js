@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if(data.status === 'success') {
                     // Handle success, e.g., redirect or show a success message
-                    window.location.href = '?view=success&message=' + data.message;
+                    window.location.href = 'success?message=' + data.message;
                     
                 }else if(data.status === 'error') {
                     // Handle error, e.g., show an error message
