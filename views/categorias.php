@@ -20,14 +20,17 @@ if(is_user_logged_in()){
     </button>
   </header>
   <div class="card-content">
-    <div class="content card-text">
+    <div class="content card-text" id="cat_message">
    Esperando por una solicitud...
     </div>
   </div>
   <footer class="card-footer">
-    <a href="#" class="card-footer-item">Save</a>
-    <a href="#" class="card-footer-item">Edit</a>
-    <a href="#" class="card-footer-item">Delete</a>
+      <form action="./php/category.php" method="POST" class="ajaxform card-footer-item">
+        <input type="hidden" name="action" value="new_category">
+        <input type="submit" value="Nueva Categoría" class="card-footer-item  cursor-pointer has-text-link-light	 has-background-inherit is-size-6" style="cursor: pointer;border:none;">
+      </form>
+    <a href="#" class="card-footer-item has-text-link-light">Edit</a>
+    <a href="#" class="card-footer-item has-text-link-light">Delete</a>
   </footer>
 </div>
 
@@ -37,7 +40,7 @@ if(is_user_logged_in()){
     <div class="container">
         <div class="columns is-centered">
             <div class="column is-6">
-                <?php get_template_part('categoria', 'new'); ?>
+              
             </div>
         </div>
   </section>

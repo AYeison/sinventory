@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php 
-$root = basename(__DIR__); // Get the name of the current directory
+$root = basename(__DIR__); 
 include './php/function.php'; 
 include  './php/view_controller.php'; 
 include  './inc/session_start.php';

@@ -1,7 +1,7 @@
-<?php
-?>
-<div class="container p-5">
-    <form action="save_category.php" method="POST">
+<div class="container p-5"> 
+    <form action="./php/category.php" method="POST" class="ajaxform">
+        <h1 class="title">Crear Nueva Categoría</h1>
+        <p class="subtitle">Complete el formulario para crear una nueva categoría.</p>
     <div class="field">
         <label class="label">Nombre de la Categoría</label>
         <div class="control">
@@ -22,5 +22,6 @@
             <a class="button is-light" href="index.php">Cancelar</a>
         </div>
     </div>
+    <input type="hidden" name="action" value="save_category">
 </form>
 </div>

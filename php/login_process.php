@@ -4,7 +4,7 @@ include dirname(__DIR__) . '/inc/regex.php';
 include dirname(__DIR__) . '/inc/session_start.php';
 
 if(!function_exists('login_user')):
-                function login_user($username, $password) {
+                function login_user($username, $password, $action) {
                     $username = clean_text($username);
                     $password = clean_text($password);
                     $conn = connect_db();
@@ -40,7 +40,7 @@ if(!function_exists('login_user')):
                                                $user_id = get_user_id($conn, $username);
                                                if ($user_id) {
                                                    user_session_start($user_id, $user_name);
-                                                   echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso']);
+                                                   echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso', 'action' => $action]);
                                                } else {
                                                    echo json_encode(['status' => 'error', 'message' => 'Usuario no encontrado']);
                                                }
@@ -66,7 +66,7 @@ endif;
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $action = $_POST['action'] ?? '';
     if ($action === 'login') {
-        login_user($_POST['username'], $_POST['password']);
+        login_user($_POST['username'], $_POST['password'], $action);
     } else {
         echo 'Acción no válida.';
     }

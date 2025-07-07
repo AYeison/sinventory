@@ -9,6 +9,7 @@ is_user_logged_redirect();
 
 <section class="section">
     <div class="container">
+        
         <form action="./php/login_process.php" method="POST" class="box ajaxform" style="max-width: 400px; margin: auto;">
             <h2 class="title is-4 has-text-centered">Iniciar Sesión</h2>
             <div class="field">
@@ -36,8 +37,10 @@ is_user_logged_redirect();
 
             <input type="hidden" name="action" value="login">
         </form>
-        <div class="notification is-danger is-light errorAjax" style="display: none;" id="error-notification">
-        <!-- Mensaje de error aquí -->
-    </div>
+        <div class="notification is-danger is-light errorAjax" style="  <?php echo $display = isset($_GET['message']) ? 'display: block;' : 'display: none;'; ?>" id="error-notification">
+            <?php if(isset($_GET['message'])): ?>
+                <p><?php echo $_GET['message']; ?></p>
+            <?php endif; ?>
+        </div>
     </div>
 </section>
