@@ -10,14 +10,15 @@
     <title>Sistema de Inventario</title>
 </head>
 <body>
-
+<?php include './php/function.php'; ?>
 <?php $view = $_GET['view'] ?? 'home'; ?>
         <?php include './inc/header.php'; ?>        
-      <main class="main" style="height: 100vh;">
+      <main class="main" style="height: auto;">
         <?php render_view($view); ?>
       </main>
 
         <?php include './inc/footer.php'; ?>
+
   
 </body>
 </html>

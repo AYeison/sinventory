@@ -32,7 +32,7 @@ function is_user_logged_in(){
 
 
 function is_user_logged_redirect(){
-   $view = isset($_GET['view']) ? $_GET['view'] : 'home';
+  global  $view;
     if(is_user_logged_in() && ($view === 'login' || $view === 'register')){
       header("Location: $SERVER_NAME/invetory/?view=home");
          

@@ -1,11 +1,11 @@
 <?php
 ?>
-<div class="container">
+<div class="container p-5">
     <form action="save_category.php" method="POST">
     <div class="field">
         <label class="label">Nombre de la Categoría</label>
         <div class="control">
-            <input class="input" type="text" name="nombre" placeholder="Ingrese el nombre de la categoría" required>
+            <input class="input" type="text" name="nombre" placeholder="Ingrese el nombre de la categoría" required autocomplete="off">
         </div>
     </div>
     <div class="field">

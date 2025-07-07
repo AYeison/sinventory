@@ -12,20 +12,16 @@ if(is_user_logged_in()){
         </h1>
         <div class="card">
   <header class="card-header">
-    <p class="card-header-title">Component</p>
-    <button class="card-header-icon" aria-label="more options">
-      <span class="icon">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
+    <p class="card-header-title">Gestor de Categorias</p>
+    <button class="card-header-icon card-down-toggle" aria-label="more options">
+      <span class="icon card-down-toggle">
+        <i class="fas fa-angle-down card-down-toggle" aria-hidden="true"></i>
       </span>
     </button>
   </header>
   <div class="card-content">
-    <div class="content">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-      iaculis mauris.
-      <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-      <br />
-      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+    <div class="content card-text">
+   Esperando por una solicitud...
     </div>
   </div>
   <footer class="card-footer">
@@ -34,8 +30,16 @@ if(is_user_logged_in()){
     <a href="#" class="card-footer-item">Delete</a>
   </footer>
 </div>
+
+
     </div>
     
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-6">
+                <?php get_template_part('categoria', 'new'); ?>
+            </div>
+        </div>
   </section>
    <?php
 } else {

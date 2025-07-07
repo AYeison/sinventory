@@ -1,5 +1,6 @@
 <?php
 include_once './scripts/navbar.php';
+ global $view;
  ?>
 
  <footer class="footer ">
@@ -11,5 +12,7 @@ include_once './scripts/navbar.php';
      </div>
    </div>
  </footer>
-
-   <script src="./public/js/ajax.js"></script>
+<?php if($view === 'categorias' || $view === 'login' || $view === 'register') : ?>
+   <script src="./public/js/ajaxforms.js"></script>
+     <script src="./public/js/dist/app_cat.bundle.js"></script>
+<?php endif; ?>

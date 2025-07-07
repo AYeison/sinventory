@@ -1,6 +1,6 @@
 <?php
 is_user_logged_redirect();
-$view = $_GET['view'];
+global $view;
 
 if(is_user_logged_in()):
 
