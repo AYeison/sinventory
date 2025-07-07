@@ -36,7 +36,7 @@ A simple inventory management system built with PHP and MySQL. This project allo
    - Edit `db/db.php` and set your MySQL credentials.
 
 4. **Set up your web server:**
-   - Point your Apache/Nginx root to the `www/Invetory` folder.
+   - Point your Apache/Nginx root to the `www/sinventory` folder.
    - If using Laragon, place the project in the `www` directory.
 
 5. **(Optional) Install frontend dependencies:**
@@ -47,13 +47,13 @@ A simple inventory management system built with PHP and MySQL. This project allo
 
 ## Usage
 
-- Visit `http://localhost/Invetory` in your browser.
+- Visit `http://localhost/sinventory` in your browser.
 - Register a new user and start managing your inventory.
 
 ## Folder Structure
 
 ```
-www/Invetory/
+www/sinventory/
 ├── db/                # Database connection scripts
 ├── inc/               # Includes (session, regex, helpers)
 ├── php/               # Backend logic (login, register, process scripts)
