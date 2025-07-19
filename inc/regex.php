@@ -6,11 +6,16 @@ function get_regex_patterns($index) {
     'password_html' => '^[a-zA-Z0-9_.\-]{8,50}$',
     'email_html' => '^[^@\s]+@[^@\s]+\.[^@\s]+$',
     'emailoruser' => '^([a-zA-Z0-9_.\-]{3,50}|[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$',
+    'onlyspaces_html' => '^[a-zA-Z0-9 ]{3,100}$',
+    'alfanum_guion_html' => '^[a-zA-Z0-9-]{3,100}$',
     // Patterns for server-side validation
     'username' => '/^(?!.*[_.-]{2})[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9](?:[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9_.-]{0,48}[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9])?$/',
     'email' => '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
     'password' => '/^[a-zA-Z0-9_.-]{8,50}$/',
-    'username_or_email' => '/^([a-zA-Z0-9_.-]{3,50}|[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$/'
+    'username_or_email' => '/^([a-zA-Z0-9_.-]{3,50}|[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$/',
+    'onlyspaces' => '/^[a-zA-Z0-9 ]{3,100}$/',
+    'alfanum_guion' => '/^[a-zA-Z0-9-]{3,100}$/'
+     
 ];
     return $regex_patterns[$index] ?? null;
 }

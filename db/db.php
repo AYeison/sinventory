@@ -2,25 +2,22 @@
 
 include dirname(__DIR__) . '/inc/get_user_info.php';
 //DB connection
-$host = 'mysql:host=localhost;';
-$user = 'root';
-$password = '';
-$database = 'dbname=inventory';
+
 
 if(!function_exists('connect_db')){
     function connect_db() {
-        global $host, $user, $password, $database;
+        $host = 'mysql:host=localhost;dbname=inventory';
+        $user = 'root';
+        $password = '';
         try {
-            $conn = new PDO($host . $database, $user, $password);
+            $conn = new PDO($host, $user, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
             return $conn;
         } catch (PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
-        return $conn;
+        return null;
     }
-
 }
 if(!function_exists('create_new_user')):
         function create_new_user($conn, $username, $email, $password) {
@@ -103,3 +100,35 @@ if(!function_exists('save_user_ip')):
                 }
             }
         endif;
+
+
+if(!function_exists('create_category')):
+            function create_category($conn, $name, $description, $slug){
+                try{
+                    $stmt = $conn->prepare("INSERT INTO categorias (categoria_name, categoria_description, categoria_slug) VALUES (:nombre, :descripcion, :slug)");
+                    $stmt->execute([
+                        ':nombre' => $name,
+                        ':descripcion' => $description,
+                        ':slug' => $slug
+                    ]);
+                    return [
+                        'success' => true,
+                        'id' => $conn->lastInsertId(),
+                    ];
+                } catch (PDOException $e) {
+                    die("Error creating category: " . $e->getMessage());
+                }
+            }
+endif;
+
+if(!function_exists('get_categories')):
+        function get_categories($conn){
+            try {
+                $stmt = $conn->prepare("SELECT * FROM categorias");
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                die("Error fetching categories: " . $e->getMessage());
+            }
+        }
+endif;

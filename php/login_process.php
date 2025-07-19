@@ -15,12 +15,14 @@ if(!function_exists('login_user')):
                     }
 
                     try{
-                    $stmt = $conn->prepare("SELECT usuario_name, usuario_password FROM usuarios WHERE usuario_name = :usuario_name OR usuario_email = :usuario_name");
+                    $stmt = $conn->prepare("SELECT usuario_name, usuario_password,usuario_ip, user_agent FROM usuarios WHERE usuario_name = :usuario_name OR usuario_email = :usuario_name");
                     $stmt->execute([':usuario_name' => $username, ':usuario_email' => $username]);
                     $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     $user_password = $user['usuario_password'] ?? '';
                     $user_name = $user['usuario_name'] ?? '';
-                     $input_data = [
+                    $user_ip = $user['usuario_ip'] ?? '';
+                    $user_agent = $user['user_agent'] ?? '';
+                    $input_data = [
                                 'username_or_email' => [
                                     'value' => $username,
                                     'regex' => get_regex_patterns('username_or_email'),
@@ -39,7 +41,7 @@ if(!function_exists('login_user')):
                                 if(password_verify($password, $user_password)) {
                                                $user_id = get_user_id($conn, $username);
                                                if ($user_id) {
-                                                   user_session_start($user_id, $user_name);
+                                                   user_session_start($user_id, $user_name, $user_ip, $user_agent);
                                                    echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso', 'action' => $action]);
                                                } else {
                                                    echo json_encode(['status' => 'error', 'message' => 'Usuario no encontrado']);

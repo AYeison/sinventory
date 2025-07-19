@@ -4,7 +4,7 @@
   "description": "System of inventory",
   "main": "public/dist/app.js",
   "scripts": {
-    "build": "webpack --config config/webpack.config.js"
+    "build": "webpack --config config/webpack.config.js --watch"
   },
   "keywords": [
     "php",

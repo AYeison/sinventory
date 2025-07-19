@@ -1,6 +1,25 @@
 export default function cat_events(){
 
-        function card_down_toggle(target){
+return {
+        transform_input_slug : function (input){
+                const form = input.closest('#category_new');
+
+            if(!form){
+                return false;
+            }
+         
+            const input_slug = form.querySelector('#slug');
+            const preview = document.querySelector('.preview-slug');
+            if(preview && input_slug){
+     
+             const slug = input.value.trim().toLowerCase().replace(/\s+/g, '-');
+             preview.textContent = slug;
+            input_slug.value = preview.textContent;
+            }
+
+          
+            },
+       card_down_toggle : function (target){
             let card = target.closest('.card');
             if(card){
                 let content = card.querySelector('.card-content');
@@ -62,12 +81,102 @@ export default function cat_events(){
                 }
                 }
            
-        }
+        },
+    dissable_button : function(type){
+            const button = document.querySelector(`button[type="submit"][data-type="${type}"]`);
+            if(button){
+                button.disabled = true;
+                button.classList.add('is-loading');
+                setTimeout(() => {
+                    button.classList.remove('is-loading');
+                }, 2000); // Re-enable after 2 seconds
+            }
+    },
 
-    document.addEventListener('click', function(e){
-        let target = e.target;
-        if(target.matches('.card-down-toggle')){
-            card_down_toggle(target);
-        }
-    });
+    return_button : function(){
+            const cat_message = document.getElementById('cat_message');
+            const type = cat_message.dataset.type || 'waiting';
+            const static_msg = cat_message.dataset.stMessage || 'Esperando por una solicitud...';
+            const cancel_btn = document.getElementById('cat_cancel');
+            const type_btn = document.querySelector(`button[type="submit"][data-type="${type}"]`);
+            if(type_btn && cancel_btn){
+               
+                type_btn.disabled = false;
+                type_btn.classList.remove('is-loading');
+                cat_message.innerHTML = static_msg;
+            }
+    },
+
+    delete_categories : function(){
+        const btn_delete = document.getElementById('delete-category');
+
+            btn_delete.addEventListener('click', function(e){
+                e.preventDefault();
+                let mode = this.dataset.mode;
+                const categories_list = document.getElementById('categories-list');
+                if(categories_list && categories_list.firstChild){
+                    const col_cats = categories_list.querySelectorAll('.column');
+
+                    if(col_cats){
+                        col_cats.forEach(function(cat){
+                            if( mode === 'active-dlt'){
+                             const form = document.createElement('form');
+                              const input_delete= document.createElement('button');
+                              const hidden_id = document.createElement('input');
+                              const cat_id = cat.id.replace(/^category-/, "");
+                              const action_input = document.createElement('input');
+                              
+                              input_delete.type = 'submit';
+                              input_delete.innerHTML = '<span>Delete</span>';
+                              input_delete.innerHTML += '<span class="icon is-small">';
+                              input_delete.innerHTML += '<i class="fas fa-times"></i>';
+                              input_delete.innerHTML += '</span>';
+                              input_delete.className = 'delete-button button is-danger is-outlined';
+
+                              hidden_id.type = 'hidden';
+                              hidden_id.value = cat_id;
+                              hidden_id.name = 'category_id';
+
+                              action_input.type='hidden';
+                              action_input.value ='delete_category';
+                              action_input.name = 'action';
+
+                              form.appendChild(input_delete);
+                              form.appendChild(hidden_id);
+                              form.appendChild(action_input);
+
+                              form.action = './php/category.php';
+                              form.method = 'POST';
+                              form.className = 'form-btn-dlt ajaxform';
+
+                              form.style.position = 'absolute';
+                              form.style.top = '-0.5em';
+                              form.style.right = '-0.5em';
+
+                              cat.appendChild(form);
+                             btn_delete.dataset.mode = 'deactive-dlt';
+                             btn_delete.textContent = 'Cancelar';
+                              
+                            }else if(mode === 'deactive-dlt'){
+                                const dlt_btn = cat.querySelector('.form-btn-dlt');
+                                if(dlt_btn){
+                                      dlt_btn.remove();
+                                        btn_delete.dataset.mode = 'active-dlt';
+                                       btn_delete.textContent = 'Delete';
+                                }
+                            }
+                        
+                            
+                           
+                          
+                        })
+                    }
+                }
+                  
+            })
+    }
+        
+}
+
+
 }

@@ -6,8 +6,8 @@
                     <h2 class="subtitle">Gestione sus productos y clientes de manera eficiente</h2>
                 </div>
             </div>  
-        
+   
            
         </section>
 
-            <div class="container " style="height:100vh;"></div>
+    <div class="container " style="height:100vh;"></div>

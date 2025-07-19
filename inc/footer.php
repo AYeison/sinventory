@@ -12,7 +12,7 @@ include_once './scripts/navbar.php';
      </div>
    </div>
  </footer>
-  <script src="./public/js/ajaxforms.js"></script>
+  <script src="./public/js/dist/ajaxforms.bundle.js"></script>
 <?php if($view === 'categorias') : ?>
      <script src="./public/js/dist/app_cat.bundle.js"></script>
 <?php endif; ?>

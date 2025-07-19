@@ -23,6 +23,8 @@ const babelloader =  {
 const entry_props = {};
 
 entry_props.app_cat = './public/js/src/app_cat.js';
+entry_props.ajaxforms = './public/js/src/ajaxforms.js';
+
 
 module.exports ={
     entry: entry_props, // Archivo principal de entrada

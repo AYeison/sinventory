@@ -4,12 +4,21 @@ is_user_logged_redirect();
 
 if(is_user_logged_in()){
    ?>
-  <section class="section">
-    <div class="container">
-        <h1 class="h1 title is-2 is-uppercase has-text-centered">
+   <section class="section">
+      <h1 class="h1 title is-2 is-uppercase has-text-centered">
             Categorías
 
         </h1>
+    <div class="container">
+       <?php
+    get_template_part('categoria', 'read');
+    ?>
+    </div>
+
+   </section>
+  <section class="section">
+    <div class="container">
+      
         <div class="card">
   <header class="card-header">
     <p class="card-header-title">Gestor de Categorias</p>
@@ -20,17 +29,19 @@ if(is_user_logged_in()){
     </button>
   </header>
   <div class="card-content">
-    <div class="content card-text" id="cat_message">
+    <div class="content card-text" id="cat_message" data-type="waiting" data-st-message="Esperando por una solicitud...">
    Esperando por una solicitud...
     </div>
   </div>
   <footer class="card-footer">
       <form action="./php/category.php" method="POST" class="ajaxform card-footer-item">
         <input type="hidden" name="action" value="new_category">
-        <input type="submit" value="Nueva Categoría" class="card-footer-item  cursor-pointer has-text-link-light	 has-background-inherit is-size-6" style="cursor: pointer;border:none;">
+        <button type="submit" value="Nueva Categoría" class="button card-footer-item  cursor-pointer has-text-link-light	has-background-inherit is-size-6" style="cursor: pointer;border:none;" data-type="new_category">
+          Nueva Categoría
+        </button>
       </form>
     <a href="#" class="card-footer-item has-text-link-light">Edit</a>
-    <a href="#" class="card-footer-item has-text-link-light">Delete</a>
+    <button type="submit" class="card-footer-item has-text-link-light" id="delete-category" data-mode="active-dlt">Delete</button>
   </footer>
 </div>
 

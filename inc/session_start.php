@@ -2,7 +2,7 @@
  include dirname(__DIR__) . '/inc/get_user_info.php';
 
 
-function user_session_start($user_id = null, $user_name = null) {
+function user_session_start($user_id = null, $user_name = null, $user_ip = null, $user_agent = null) {
      session_set_cookie_params([
         'lifetime' => 86400,
         'path' =>  '/',
@@ -20,14 +20,28 @@ function user_session_start($user_id = null, $user_name = null) {
 
     $_SESSION['user_id'] =  $user_id ?? null;
     $_SESSION['user_name'] = $user_name ?? null;
-    $_SESSION['user_ip'] = get_user_ip();
-    $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? 'UNKNOWN';
+    $_SESSION['user_ip'] = $user_ip ?? null;
+    $_SESSION['user_agent'] = $user_agent ?? null;
 
   
 }
+function is_session_valid() {
+    if (!isset($_SESSION['user_agent']) || !isset($_SESSION['user_ip'])) {
+        return false;
+    }
+    if ($_SESSION['user_agent'] !== $_SERVER['HTTP_USER_AGENT']) {
+        return false;
+    }
+    if ($_SESSION['user_ip'] !== $_SERVER['REMOTE_ADDR']) {
+        return false;
+    }
+    return true;
+}
 
 function is_user_logged_in(){
-    return isset($_SESSION['user_id']);
+    if(is_session_valid() && isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+        return true;
+    }
 }
 
 
@@ -41,6 +55,7 @@ function is_user_logged_redirect(){
         exit();
     }
 }
+
 
 function user_session_out(){
     if (session_status() === PHP_SESSION_ACTIVE) {
@@ -57,4 +72,3 @@ function user_session_out(){
         }
     }
 }
-   
