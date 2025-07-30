@@ -3,6 +3,62 @@ import cat_events from './categoria/events.js';
 document.addEventListener('DOMContentLoaded', function() {
 
     const c_events = cat_events();
+    function delete_category(data, params = null) {
+        const {category_id} = data;
+        const cat_element = document.querySelector('#category-' + category_id);
+      console.log('Category deleted:', category_id);
+        const cat_message = document.getElementById('cat_noty_message');
+        cat_message.innerHTML = `
+            <div class="notification is-info is-light fade-in" style="position:fixed;top:1rem;right:1rem;z-index:1000;transition:opacity 0.5s;">
+            Category ${category_id} deleted successfully.
+            <button class="delete"></button>
+            </div>
+        `;
+        cat_message.dataset.type = 'delete_category';
+        // Remove the category element after a delay
+        if(cat_element) {
+            // Fade out the category element before removing it
+            cat_element.style.transition = 'opacity 0.3s';
+            setTimeout(() => {
+                cat_element.style.opacity = '0';
+                setTimeout(() => {
+                    cat_element.remove();
+                }, 500); // Wait for fade-out transition
+            }, 300); // Optional: small delay before starting fade
+        }
+
+        // Add fade-in effect
+        const notification = cat_message.querySelector('.notification');
+        if (notification) {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+            notification.style.opacity = '1';
+            }, 10);
+
+            // Remove after 3 seconds with fade-out
+            setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                cat_message.innerHTML = '';
+            }, 500);
+            }, 3000);
+        }
+
+        // Allow closing the notification manually
+        const deleteBtn = cat_message.querySelector('.delete');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => {
+            if (notification) {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                cat_message.innerHTML = '';
+                }, 500);
+            } else {
+                cat_message.innerHTML = '';
+            }
+            });
+        }
+    }
         
     // Define actions for different form submission
     function new_category(data, params= null) {
@@ -25,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cat_notice.innerHTML = data.message;
             cat_notice.style.display = 'block';
 
-            new_category.id = last_category.categoria_id;
+            new_category.id = 'category-'+last_category.categoria_id;
             new_category.className = 'column is-one-quarter';
             new_category.style.position = 'relative';
             new_category.innerHTML = `
@@ -64,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             throw new Error('Action not recognized: ' + data.action);
         }
 
-    const actions = {new_category,save_category,register,login,logout,none}
+    const actions = {new_category,save_category,register,login,logout,none, delete_category};
     this.addEventListener('submit', function(e){
         if(e.target.matches('.ajaxform')) {
                 e.preventDefault(); 

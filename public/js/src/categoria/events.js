@@ -1,7 +1,50 @@
 export default function cat_events(){
+    function create_button(cat, name_btn, action, type, tgElement) {
+                             const form = document.createElement('form');
+                              const input_submit= document.createElement('button');
+                              const hidden_id = document.createElement('input');
+                              const cat_id = cat.id.replace(/^category-/, "");
+                              const action_input = document.createElement('input');
+
+                              const btn_classes = {
+                                delete: 'delete-button button is-danger is-outlined',
+                                edit: 'edit-button button is-info is-outlined'
+                              }
+                              
+                              input_submit.type = 'submit';
+                              input_submit.innerHTML = '<span>'+name_btn+'</span>';
+                              input_submit.innerHTML += '<span class="icon is-small">';
+                              input_submit.innerHTML += '<i class="fas fa-times"></i>';
+                              input_submit.innerHTML += '</span>';
+                              input_submit.className = btn_classes[type];
+
+                              hidden_id.type = 'hidden';
+                              hidden_id.value = cat_id;
+                              hidden_id.name = 'category_id';
+
+                              action_input.type='hidden';
+                              action_input.value = action;
+                              action_input.name = 'action';
+
+                              form.appendChild(input_submit);
+                              form.appendChild(hidden_id);
+                              form.appendChild(action_input);
+
+                              form.action = './php/category.php';
+                              form.method = 'POST';
+                              form.className = 'form-btn-dlt ajaxform';
+
+                              form.style.position = 'absolute';
+                              form.style.top = '-0.5em';
+                              form.style.right = '-0.5em';
+
+                            cat.appendChild(form);
+                             tgElement.dataset.mode = 'deactive-dlt';
+                             tgElement.textContent = 'Cancelar';
+    }
 
 return {
-        transform_input_slug : function (input){
+        transform_input_slug :  (input) => {
                 const form = input.closest('#category_new');
 
             if(!form){
@@ -19,7 +62,7 @@ return {
 
           
             },
-       card_down_toggle : function (target){
+       card_down_toggle :  (target) => {
             let card = target.closest('.card');
             if(card){
                 let content = card.querySelector('.card-content');
@@ -82,7 +125,7 @@ return {
                 }
            
         },
-    dissable_button : function(type){
+    dissable_button : (type) => {
             const button = document.querySelector(`button[type="submit"][data-type="${type}"]`);
             if(button){
                 button.disabled = true;
@@ -93,7 +136,7 @@ return {
             }
     },
 
-    return_button : function(){
+    return_button : () => {
             const cat_message = document.getElementById('cat_message');
             const type = cat_message.dataset.type || 'waiting';
             const static_msg = cat_message.dataset.stMessage || 'Esperando por una solicitud...';
@@ -107,12 +150,14 @@ return {
             }
     },
 
-    delete_categories : function(){
-        const btn_delete = document.getElementById('delete-category');
-
-            btn_delete.addEventListener('click', function(e){
+    delete_categories : () => {
+            document.addEventListener('click', function(e){
+                let target = e.target;
+                if(!target.matches('#delete-category')){
+                    return;
+                }
                 e.preventDefault();
-                let mode = this.dataset.mode;
+                let mode = target.dataset.mode;
                 const categories_list = document.getElementById('categories-list');
                 if(categories_list && categories_list.firstChild){
                     const col_cats = categories_list.querySelectorAll('.column');
@@ -120,60 +165,54 @@ return {
                     if(col_cats){
                         col_cats.forEach(function(cat){
                             if( mode === 'active-dlt'){
-                             const form = document.createElement('form');
-                              const input_delete= document.createElement('button');
-                              const hidden_id = document.createElement('input');
-                              const cat_id = cat.id.replace(/^category-/, "");
-                              const action_input = document.createElement('input');
-                              
-                              input_delete.type = 'submit';
-                              input_delete.innerHTML = '<span>Delete</span>';
-                              input_delete.innerHTML += '<span class="icon is-small">';
-                              input_delete.innerHTML += '<i class="fas fa-times"></i>';
-                              input_delete.innerHTML += '</span>';
-                              input_delete.className = 'delete-button button is-danger is-outlined';
+                                create_button(cat, 'Delete', 'delete_category', 'delete', target);
 
-                              hidden_id.type = 'hidden';
-                              hidden_id.value = cat_id;
-                              hidden_id.name = 'category_id';
-
-                              action_input.type='hidden';
-                              action_input.value ='delete_category';
-                              action_input.name = 'action';
-
-                              form.appendChild(input_delete);
-                              form.appendChild(hidden_id);
-                              form.appendChild(action_input);
-
-                              form.action = './php/category.php';
-                              form.method = 'POST';
-                              form.className = 'form-btn-dlt ajaxform';
-
-                              form.style.position = 'absolute';
-                              form.style.top = '-0.5em';
-                              form.style.right = '-0.5em';
-
-                              cat.appendChild(form);
-                             btn_delete.dataset.mode = 'deactive-dlt';
-                             btn_delete.textContent = 'Cancelar';
-                              
-                            }else if(mode === 'deactive-dlt'){
+                                }else if(mode === 'deactive-dlt'){
                                 const dlt_btn = cat.querySelector('.form-btn-dlt');
                                 if(dlt_btn){
                                       dlt_btn.remove();
-                                        btn_delete.dataset.mode = 'active-dlt';
-                                       btn_delete.textContent = 'Delete';
+                                        target.dataset.mode = 'active-dlt';
+                                       target.textContent = 'Delete';
                                 }
                             }
-                        
-                            
-                           
                           
                         })
                     }
                 }
                   
             })
+    },
+    edit_categories :  () => {
+                document.addEventListener('click', function(e){
+                let target = e.target;
+                if(!target.matches('#edit-category')){
+                    return;
+                }
+                e.preventDefault();
+                let mode = target.dataset.mode;
+                const categories_list = document.getElementById('categories-list');
+                if(categories_list && categories_list.firstChild){
+                    const col_cats = categories_list.querySelectorAll('.column');
+
+                    if(col_cats){
+                        col_cats.forEach(function(cat){
+                            if( mode === 'active-dlt'){
+                                create_button(cat, 'Edit', 'edit_category', 'edit', target);
+
+                                }else if(mode === 'deactive-dlt'){
+                                const dlt_btn = cat.querySelector('.form-btn-dlt');
+                                if(dlt_btn){
+                                      dlt_btn.remove();
+                                        target.dataset.mode = 'active-dlt';
+                                       target.textContent = 'Edit';
+                                }
+                            }
+                          
+                        })
+                    }
+                }
+
+                })
     }
         
 }

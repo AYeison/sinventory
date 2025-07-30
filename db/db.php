@@ -132,3 +132,15 @@ if(!function_exists('get_categories')):
             }
         }
 endif;
+
+if(!function_exists('db_delete_category')):
+            function db_delete_category($conn,  int $category_id) {
+                try {
+                    $stmt = $conn->prepare("DELETE FROM categorias WHERE categoria_id = :categoria_id");
+                    $stmt->execute([':categoria_id' => $category_id]);
+                    return true;
+                } catch (PDOException $e) {
+                    die("Error deleting category: " . $e->getMessage());
+                }
+            }
+endif;

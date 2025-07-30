@@ -4,6 +4,7 @@ is_user_logged_redirect();
 
 if(is_user_logged_in()){
    ?>
+   <div id="cat_noty_message"></div>
    <section class="section">
       <h1 class="h1 title is-2 is-uppercase has-text-centered">
             Categorías
@@ -40,7 +41,7 @@ if(is_user_logged_in()){
           Nueva Categoría
         </button>
       </form>
-    <a href="#" class="card-footer-item has-text-link-light">Edit</a>
+     <button type="submit" class="card-footer-item has-text-link-light" id="edit-category" data-mode="active-dlt">Edit</button>
     <button type="submit" class="card-footer-item has-text-link-light" id="delete-category" data-mode="active-dlt">Delete</button>
   </footer>
 </div>

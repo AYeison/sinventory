@@ -82,6 +82,28 @@ if(!function_exists('new_category')):
 
 endif;
 
+if(!function_exists('delete_category')):
+            function delete_category($action){
+                $category_id = isset($_POST['category_id']) ? $_POST['category_id'] : null;
+               if ($category_id) {
+                   $conn = connect_db();
+                   if ($conn) {
+                       $deleted = db_delete_category($conn, $category_id);
+                       if ($deleted) {
+                           echo json_encode(['status' => 'success', 'message' => 'Categoría eliminada correctamente.', 'action' => $action, 'category_id' => $category_id]);
+                       } else {
+                           echo json_encode(['status' => 'error', 'message' => 'Error al eliminar la categoría.']);
+                       }
+                       disconnect_db($conn);
+                   } else {
+                       echo json_encode(['status' => 'error', 'message' => 'Error de conexión a la base de datos.', 'category_id' => $category_id]);
+                   }
+               } else {
+                   echo json_encode(['status' => 'error', 'message' => 'ID de categoría no válido.', 'category_id' => $category_id]);
+               }
+            }
+endif;
+
 if(!function_exists('cat_request_method')):
 
     function cat_request_method($action){
@@ -91,6 +113,9 @@ if(!function_exists('cat_request_method')):
                 break;
             case 'new_category':
                 new_category($action);
+                break;
+            case 'delete_category':
+                delete_category($action);
                 break;
             default:
                 echo json_encode(['status' => 'error', 'message' => 'Acción no reconocida.', 'action' => 'none']);
